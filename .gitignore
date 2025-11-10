@@ -1,0 +1,29 @@
+# Local .terraform directories
+**/.terraform/*
+
+# Terraform state files
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+
+# Crash log files
+crash.log
+
+# Ignore override files as they are usually local-only
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore lock files (can be kept if you want deterministic provider versions)
+.terraform.lock.hcl
+
+# Ignore IDE/editor specific files
+.vscode/
+.idea/
+.DS_Store
+
+# Ignore Terraform plan output files
+*.plan
+
