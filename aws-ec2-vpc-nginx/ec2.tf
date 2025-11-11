@@ -5,6 +5,7 @@ resource "aws_instance" "nginxserver" {
     subnet_id = aws_subnet.terraform-public-subnet.id
     vpc_security_group_ids = [ aws_security_group.nginx-sg.id]
     associate_public_ip_address = true
+    key_name = aws_key_pair.terraform_key.key_name
 
 
     user_data = <<-EOF
