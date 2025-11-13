@@ -27,3 +27,4 @@ override.tf.json
 # Ignore Terraform plan output files
 *.plan
 
+*.pem

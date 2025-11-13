@@ -36,6 +36,40 @@ data "aws_vpc" "name" {
     }
 }
 
+
+data "aws_availability_zones" "name" {
+    state = "available"
+}
+
+
+# to get the account details
+data "aws_caller_identity" "name" {
+    
+}
+
+data "aws_region" "name" {
+}
+
+
+# output section
+
+
+output "region_name" {
+    value = data.aws_region.name
+}
+
+
+output "called_info" {
+    value = data.aws_caller_identity.name
+
+}
+
+
+
+output "aws_zones" {
+    value = data.aws_availability_zones.name
+}
+
 output "aws_ami" {
     value = data.aws_ami.name.id
 }
@@ -50,10 +84,24 @@ output "aws_vpc" {
 }
 
 
+# subnet ID
+data "aws_subnet" "name" {
+    filter {
+        name= "vpc-id"
+        values = [data.aws_vpc.name.id]
+    }
+
+    tags = {
+        Name = "project-subnet-private1-ap-south-1a"
+    }
+}
+
 
 resource "aws_instance" "myserver" {
-    ami = data.aws_ami.name.id
+    ami = "ami-02b8269d5e85954ef"
     instance_type = "t3.micro"
+    security_groups = [ data.aws_security_group.name.id ]
+    subnet_id = data.aws_subnet.name.id
 
     tags = { # optional
         Name= "SampleServer"
