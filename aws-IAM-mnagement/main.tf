@@ -16,11 +16,16 @@ provider "aws" {
 
 locals {
     users = yamldecode(file("users.yaml")).users
+
+    user_role_pair = flatten([ for user in local.users: [for role in user.roles: {
+        username = user.username
+        role = role
+    }]]) # makes list of lists into a single list
 }
 
 
 output "user_data" {
-    value = local.users[*].username
+    value = local.user_role_pair
 }
 
 
@@ -45,4 +50,16 @@ resource "aws_iam_user_login_profile" "profile" {
         pgp_key,
         ]
     }
+}
+
+
+
+resource "aws_iam_user_policy_attachment" "name" { 
+    for_each = {
+        for pair in local.user_role_pair :
+        "${pair.username}-${pair.role}" => pair
+    }
+
+    user = aws_iam_user.users[each.value.username].name
+    policy_arn = "arn:aws:iam::aws:policy/${each.value.role}"
 }

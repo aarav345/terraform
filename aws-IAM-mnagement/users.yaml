@@ -1,7 +1,7 @@
 users:
   - username: aarav
-    role: [AmazonEC2FullAccess, AmazonS3FullAccess]
+    roles: [AmazonEC2FullAccess, AmazonS3FullAccess]
   - username: riya
-    role: [AmazonS3ReadOnlyAccess]
+    roles: [AmazonS3ReadOnlyAccess]
   - username: shubham
-    role: [AmazonEC2FullAccess, AmazonS3ReadOnlyAccess]
+    roles: [AmazonEC2FullAccess, AmazonS3ReadOnlyAccess]
