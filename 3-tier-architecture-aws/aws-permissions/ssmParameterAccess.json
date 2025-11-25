@@ -1,0 +1,48 @@
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "SSMParameterAccess",
+			"Effect": "Allow",
+			"Action": [
+				"ssm:PutParameter",
+				"ssm:GetParameter",
+				"ssm:GetParameters",
+				"ssm:GetParametersByPath",
+				"ssm:DeleteParameter",
+				"ssm:DeleteParameters",
+				"ssm:ListTagsForResource",
+				"ssm:AddTagsToResource"
+			],
+			"Resource": "arn:aws:ssm:ap-south-1:359850484606:parameter/*"
+		},
+		{
+			"Sid": "SSMDescribeAccess",
+			"Effect": "Allow",
+			"Action": "ssm:DescribeParameters",
+			"Resource": "*"
+		},
+		{
+			"Sid": "KMSDecryptForSSM",
+			"Effect": "Allow",
+			"Action": [
+				"kms:Decrypt",
+				"kms:Encrypt",
+				"kms:GenerateDataKey",
+				"kms:CreateGrant"
+			],
+			"Resource": "*",
+			"Condition": {
+				"StringEquals": {
+					"kms:ViaService": "ssm.ap-south-1.amazonaws.com"
+				}
+			}
+		},
+		{
+			"Sid": "KMSDescribeKey",
+			"Effect": "Allow",
+			"Action": "kms:DescribeKey",
+			"Resource": "*"
+		}
+	]
+}
