@@ -1,0 +1,13 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "codeconnections:GetConnectionToken",
+                "codeconnections:GetConnection"
+            ],
+            "Resource": "arn:aws:codeconnections:ap-south-1:359850484606:connection/6b2e9e5c-3769-4699-b8b6-68d6af38a477"
+        }
+    ]
+}
