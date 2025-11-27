@@ -31,3 +31,45 @@ variable "db_config" {
         db_name = string
     })
 }
+
+
+
+variable "github_repo" {
+    description = "GitHub repo HTTPS URL"
+    type        = string
+    default     = "https://github.com/aarav345/node-aws-pipeline.git"
+}
+
+
+variable "codebuild_buildspec" {
+    type    = string
+    default = "backend/buildspec.yml"
+}
+
+variable "codebuild_log_group_name" {
+    type    = string
+    default = "codebuild-logs-backend"
+}
+
+
+variable "codebuild_role_name" {
+    type    = string
+    default = "3-tier-codebuild-role"
+}
+
+
+variable "codedeploy_role_name" {
+    type    = string
+    default = "3-tier-codedeploy-role"
+}
+
+
+variable "ec2_role_name" {
+    type    = string
+    default = "3-tier-ec2-role"
+}
+
+
+
+
+

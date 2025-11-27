@@ -1,4 +1,10 @@
 
+resource "aws_iam_instance_profile" "ec2_instance_profile" {
+    name = "${var.project_name}-ec2-instance-profile"
+    role = data.aws_iam_role.ec2_role.name
+}
+
+
 # Bastion host
 resource "aws_instance" "bastion_host" {
     ami                    = var.ec2_config_map["ec2"].ami
@@ -50,7 +56,7 @@ resource "aws_launch_template" "application_tier_lt" {
 
     # IAM Instance Profile (already created in AWS console)
     iam_instance_profile {
-        name = "3-tier-ec2-role"
+        name = aws_iam_instance_profile.ec2_instance_profile.name
     }
 
     # Load user data from file (Base64 encoding automatically handled)
@@ -92,7 +98,7 @@ resource "aws_launch_template" "presentation_tier_lt" {
     vpc_security_group_ids = [aws_security_group.presentation_ec2_sg.id]
 
     iam_instance_profile {
-        name = "3-tier-ec2-role"
+        name = aws_iam_instance_profile.ec2_instance_profile.name
     }
 
     # Pass ALB DNS dynamically

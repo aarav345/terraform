@@ -1,0 +1,45 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateRole",
+                "iam:AttachRolePolicy",
+                "iam:PutRolePolicy",
+                "iam:GetRole",
+                "iam:ListRoles",
+                "iam:ListRolePolicies",
+                "iam:ListAttachedRolePolicies",
+                "iam:GetRolePolicy",
+                "iam:UpdateAssumeRolePolicy",
+                "iam:DeleteRolePolicy",
+                "iam:DetachRolePolicy",
+                "iam:DeleteRole",
+                "iam:PassRole"
+            ],
+            "Resource": [
+                "arn:aws:iam::359850484606:role/*codebuild*",
+                "arn:aws:iam::359850484606:role/*codedeploy*",
+                "arn:aws:iam::359850484606:role/*codepipeline*",
+                "arn:aws:iam::359850484606:role/*3-tier*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateServiceLinkedRole"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "iam:AWSServiceName": [
+                        "codepipeline.amazonaws.com",
+                        "codebuild.amazonaws.com",
+                        "codedeploy.amazonaws.com"
+                    ]
+                }
+            }
+        }
+    ]
+}
