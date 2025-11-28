@@ -13,7 +13,7 @@ resource "aws_lb_target_group" "application_tg" {
         matcher             = "200-399"
         timeout             = 5
         healthy_threshold   = 2
-        unhealthy_threshold = 2
+        unhealthy_threshold = 3
         protocol            = "HTTP"
     }
 
@@ -41,7 +41,7 @@ resource "aws_lb_target_group" "presentation_tg" {
         matcher             = "200-399"
         timeout             = 5
         healthy_threshold   = 2
-        unhealthy_threshold = 2
+        unhealthy_threshold = 3
         protocol            = "HTTP"
     }
 

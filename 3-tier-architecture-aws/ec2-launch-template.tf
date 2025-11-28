@@ -104,7 +104,7 @@ resource "aws_launch_template" "presentation_tier_lt" {
     # Pass ALB DNS dynamically
     user_data = base64encode(
         templatefile("${path.module}/scripts/presentationTier.sh.tpl", {
-            APP_TIER_ALB_URL = aws_lb.application_alb.dns_name
+            APP_TIER_ALB_URL = "http://${aws_lb.application_alb.dns_name}"
             NGINX_CONF       = "/etc/nginx/nginx.conf"
             SERVER_NAME      = "aaravpradhan.online www.aaravpradhan.online"
             REGION           = "ap-south-1"

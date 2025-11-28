@@ -33,6 +33,22 @@ variable "db_config" {
 }
 
 
+# variable "codebuild_config_map" {
+#     type = map(object({
+#         name = string
+#         buildspec = string 
+#         cloudwatch_logs = string
+#         stream_name = optional(string)
+#         description = string
+#         repo_url = string
+
+#         pipeline_name = string
+#         asg_name = string
+#         tg_name = string
+#     }))
+# }
+
+
 
 variable "github_repo" {
     description = "GitHub repo HTTPS URL"
@@ -69,6 +85,10 @@ variable "ec2_role_name" {
     default = "3-tier-ec2-role"
 }
 
+variable "codepipeline_role_name" {
+    type = string
+    default = "3-tier-codepipeline-role"
+}
 
 
 

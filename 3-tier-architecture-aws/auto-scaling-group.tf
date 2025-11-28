@@ -17,7 +17,7 @@ resource "aws_autoscaling_group" "application_tier_asg" {
 
     # Enable ELB health checks
     health_check_type         = "ELB"
-    health_check_grace_period = 120
+    health_check_grace_period = 600
 
     force_delete = true
 

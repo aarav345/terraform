@@ -109,36 +109,32 @@ echo "Configuring PM2 for automatic startup..."
 
 # Generate PM2 startup script
 # Note: The actual app will be started by CodeDeploy, not here
-STARTUP_CMD=$(sudo -u ${APP_USER} pm2 startup systemd -u ${APP_USER} --hp ${APP_HOME} | grep "sudo")
+# Setup PM2 startup script - using direct command
+sudo env PATH=$PATH:/usr/bin pm2 startup systemd -u ${APP_USER} --hp ${APP_HOME}
 
-if [ -n "$STARTUP_CMD" ]; then
-    echo "Executing PM2 startup command..."
-    eval "$STARTUP_CMD" || error_exit "Failed to setup PM2 startup"
-else
-    echo "Warning: Could not generate PM2 startup command"
-fi
+echo "✓ PM2 startup configured"
 
 # Create PM2 ecosystem config template
 sudo -u ${APP_USER} tee "${APP_HOME}/ecosystem.config.js" > /dev/null << 'EOL'
 module.exports = {
-  apps: [{
-    name: 'backend-app',
-    script: './server.js',
-    instances: 'max',
-    exec_mode: 'cluster',
-    autorestart: true,
-    watch: false,
-    max_memory_restart: '512M',
-    env: {
-      NODE_ENV: 'production',
-      PORT: 3000
-    },
-    error_file: '/var/log/react-node-mysql-app/backend/error.log',
-    out_file: '/var/log/react-node-mysql-app/backend/combined.log',
-    log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
-    merge_logs: true,
-    time: true
-  }]
+    apps: [{
+        name: 'backend-app',
+        script: './server.js',
+        instances: 'max',
+        exec_mode: 'cluster',
+        autorestart: true,
+        watch: false,
+        max_memory_restart: '512M',
+        env: {
+            NODE_ENV: 'production',
+            PORT: 3000
+        },
+        error_file: '/var/log/react-node-mysql-app/backend/error.log',
+        out_file: '/var/log/react-node-mysql-app/backend/combined.log',
+        log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+        merge_logs: true,
+        time: true
+    }]
 };
 EOL
 
